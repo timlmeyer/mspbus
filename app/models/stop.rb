@@ -35,4 +35,10 @@ class Stop < ActiveRecord::Base
     end
   end
 
+  def self.get_stop_by_id(params)
+    tire.search(page: params[:page], per_page: 10) do
+      filter :term, :stop_id => params[:id]
+    end
+  end
+
 end

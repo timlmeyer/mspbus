@@ -2,7 +2,9 @@ Setup
 ==============================
 
  1. Download and install [ElasticSearch](http://www.elasticsearch.org/)
- 2. Install Rails
+ 2. Install Ruby 1.9.3
+ 3. Install Rails
+   * Be sure that Rails is not trying to use Ruby 1.8, it will not work
  3. Install Bundle
  4. Run `bundle`
    * May need `sudo apt-get install libpq-dev`

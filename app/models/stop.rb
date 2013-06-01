@@ -8,6 +8,7 @@ class Stop < ActiveRecord::Base
 
   mapping do
     indexes :stop_id, type: :string
+    indexes :stop_desc, type: :string
     indexes :stop_name, type: :string
     indexes :stop_city, type: :string
     indexes :stop_street, type: :string
@@ -16,7 +17,7 @@ class Stop < ActiveRecord::Base
   end
 
   def location
-    [stop_lon, stop_lat]
+    [stop_lon.to_f, stop_lat.to_f]
   end
 
   def self.search(params)

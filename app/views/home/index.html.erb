@@ -1,1 +1,18 @@
-Testing a server.
+<h1>Stops</h1>
+
+<table class="table swaps-table">
+  <thead>
+    <tr>
+      <th>Stop Name</th>
+      <th>Distance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stops.results.each do |stop| %>
+      <tr>
+        <td><%= stop.stop_name %><br><i><%= stop.stop_desc %></i></td>
+        <td><%= (stop.sort[0]*5280).round(2) unless stop.sort[0].nil? %> Feet Away</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

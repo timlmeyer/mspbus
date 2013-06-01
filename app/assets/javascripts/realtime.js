@@ -27,14 +27,20 @@ var RealtimeModel = Backbone.Model.extend({
   }
 });
 
+// Realtime Template
 var realtime_template = _.template("<ul><% _.each(data, function(item) { %> <li><%= item.DepartureText %> <%= item.RouteDirection.substring(0,1) %> <%= item.Route %><%= item.Terminal %></li> <% }); %></ul>");
 
 $(document).ready(function() {
-  var realtime_model = new RealtimeModel({ id: 17976, dataType: 'jsonp' });
-  realtime_model.fetch({ success: got_data });
 
+  // Loop over stops and get realtime data
+  $(".real-time").each(function(index, item) {
+    var realtime_model = new RealtimeModel({ id: item.id, dataType: 'jsonp' });
+    realtime_model.fetch({ success: got_data });
+
+  });
+  
+  // Callback on realtime model.
   function got_data(model, data) {
-    console.log(data);
-    $(".real-time").html( realtime_template({ data: data }) );
+    $("#" + model.id).html( realtime_template({ data: data }) );
   }
 });

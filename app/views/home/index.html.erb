@@ -12,7 +12,7 @@
       <tr>
         <td>
           <%= stop.stop_name %><br><i><%= stop.stop_desc %></i>
-          <div class="real-time" data-attr="<%= stop.stop_id %>"></div>
+          <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
         </td>
         <td><%= (stop.sort[0]*5280).round(2) unless stop.sort[0].nil? %> Feet Away</td>
       </tr>

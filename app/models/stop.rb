@@ -4,7 +4,16 @@ class Stop < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  attr_accessible :stop_id, :stop_code, :stop_name, :stop_desc, :stop_lat, :stop_lon
+  attr_accessible :stop_id, :stop_name, :stop_desc, :stop_lat, :stop_lon, :stop_city, :stop_street
+
+  mapping do
+    indexes :stop_id, type: :string
+    indexes :stop_name, type: :string
+    indexes :stop_city, type: :string
+    indexes :stop_street, type: :string
+
+    indexes :location, type: 'geo_point', as: 'location'
+  end
 
   def location
     [stop_lon, stop_lat]

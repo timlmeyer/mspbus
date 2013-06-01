@@ -1,0 +1,22 @@
+.app-container {
+  margin-top: 60px;
+}
+
+@media (max-width: 767px) {
+  .app-container {
+    margin-top: 0px;
+  }
+  .pan3 {
+    margin-left: 0px;
+  }
+}
+
+@media (max-width: 979px) and (min-width: 768px) {
+  .app-container {
+    margin-top: 0px;
+  }
+
+  .span3 {
+    margin-left: 10px;
+  }
+}

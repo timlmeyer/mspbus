@@ -28,7 +28,7 @@ var RealtimeModel = Backbone.Model.extend({
 });
 
 // Realtime Template
-var realtime_template = _.template("<ul><% _.each(data, function(item) { %> <li><%= item.DepartureText %> <%= item.RouteDirection.substring(0,1) %> <%= item.Route %><%= item.Terminal %></li> <% }); %></ul>");
+var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label"> <%= item.DepartureText %>  <b><%= item.Route %><%= item.Terminal %></b>-<%= item.RouteDirection.substring(0,1) %></span> <% }); %>');
 
 $(document).ready(function() {
 
@@ -41,6 +41,7 @@ $(document).ready(function() {
   
   // Callback on realtime model.
   function got_data(model, data) {
+    data=_.filter(data,function(obj) { return obj.Actual });
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
 });

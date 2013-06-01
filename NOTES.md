@@ -44,7 +44,12 @@ Example output:
             "Gate": "",
             "VehicleLatitude": 44.9810355,
             "VehicleHeading": 0
-        }
+        },
+        {
+          ....
+          ....
+        },
+        ....
     ]
 
 List of Routes Names, Descriptions, and Providers

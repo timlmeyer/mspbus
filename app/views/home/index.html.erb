@@ -1,4 +1,15 @@
-<h1>Stops</h1>
+<script type='text/javascript'>
+    clientLocation = false;
+
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            clientLocation = position.coords;
+        });
+    }
+</script>
+
+<h1 class='pgTitle'>Stops</h1>
 
 <table class="table swaps-table">
   <thead>
@@ -9,8 +20,11 @@
   </thead>
   <tbody>
     <% @stops.results.each do |stop| %>
-      <tr class="stop">
-        <td><span class="name"><%= stop.stop_name %></span><br><span class="desc"><%= stop.stop_desc %></span><br><span class="next"></span></td>
+      <tr>
+        <td>
+          <%= stop.stop_name %><br><i><%= stop.stop_desc %></i>
+          <div class="real-time" data-attr="<%= stop.stop_id %>"></div>
+        </td>
         <td><%= (stop.sort[0]*5280).round(2) unless stop.sort[0].nil? %> Feet Away</td>
       </tr>
     <% end %>

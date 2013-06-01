@@ -60,7 +60,6 @@ $(document).ready(function() {
       }
     );
     data=_.sortBy(data,function(obj) { return obj.DepartureText; });
-    console.log(data);
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
 });

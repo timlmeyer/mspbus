@@ -28,7 +28,7 @@ var RealtimeModel = Backbone.Model.extend({
 });
 
 // Realtime Template
-var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label"> <%= item.DepartureText %>  <b><%= item.Route %><%= item.Terminal %></b>-<%= item.RouteDirection.substring(0,1) %></span> <% }); %>');
+var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"> <b><%= item.Route %><%= item.Terminal %></b> &ndash; <i><%= item.DepartureText %> min</i></span> <% }); %>');
 
 $(document).ready(function() {
 
@@ -41,7 +41,26 @@ $(document).ready(function() {
   
   // Callback on realtime model.
   function got_data(model, data) {
-    data=_.filter(data,function(obj) { return obj.Actual });
+    data=_.filter(data,function(obj) { return obj.Actual }); //Only show real-time data
+    data=_.map(data,
+      function(obj) {
+        if(obj.DepartureText=="Due")
+          obj.DepartureText=0;
+        else
+          obj.DepartureText=parseInt(obj.DepartureText.replace(/\D/g,''),10);
+
+        if(obj.DepartureText<5)
+          obj.priority="label-important";
+        else if (obj.DepartureText<15)
+          obj.priority="label-warning";
+        else
+          obj.priority="label-success";
+
+        return obj;
+      }
+    );
+    data=_.sortBy(data,function(obj) { return obj.DepartureText; });
+    console.log(data);
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
 });

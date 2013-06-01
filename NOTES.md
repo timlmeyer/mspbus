@@ -5,6 +5,10 @@ Setup
  2. Install Rails
  3. Install Bundle
  4. Run `bundle`
+   * May need `sudo apt-get install libpq-dev`
+   * May need `sudo apt-get install libsqlite3-dev`
+
+
  5. Index GeoData `rake environment tire:import CLASS='Stop' FORCE=true`
 
 

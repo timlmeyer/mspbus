@@ -9,16 +9,14 @@
     }
 </script>
 
-<table class="table swaps-table">
-  <tbody>
-    <% @stops.results.each do |stop| %>
-      <tr>
-        <td>
-          <b><%= stop.stop_name %></b>
-          <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
-        </td>
-        <td><%= (stop.sort[0]*5280).round(2) unless stop.sort[0].nil? %> Feet Away</td>
-      </tr>
+<div class="btn-group btn-group-vertical">
+  <% @stops.results.each do |stop| %>
+    <div style="text-align:left;" class="stopbutton btn">
+      <a href="stop<%= stop.stop_id %>.html">
+        <div style="position:absolute;right:5px"><%= (stop.sort[0]*5280).round() unless stop.sort[0].nil? %> Feet Away</div>
+        <b><%= stop.stop_name %></b> 
+        <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
+      </a>
+    </div>
     <% end %>
-  </tbody>
-</table>
+</div>

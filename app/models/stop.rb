@@ -22,10 +22,13 @@ class Stop < ActiveRecord::Base
 
   def self.search(params)
     tire.search(page: params[:page], per_page: 10) do
-      #query { all }# if params[:q].present?
+      query { string params[:q], default_operator: "AND" } if params[:q].present?
       # filter :term, :active => true
       # filter :term, :is_deleted => false
-      filter :geo_distance, location: "#{params[:lat]},#{params[:lon]}", distance: "#{params[:radius]}mi"
+      unless params[:q].present?
+        filter :geo_distance, location: "#{params[:lat]},#{params[:lon]}", distance: "#{params[:radius]}mi"
+      end
+
       sort do
         by "_geo_distance", "location" => "#{params[:lat]},#{params[:lon]}", "unit" => "mi"
       end

@@ -1,17 +1,6 @@
-<script type='text/javascript'>
-    clientLocation = false;
-
-    if (navigator.geolocation)
-    {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            clientLocation = position.coords;
-        });
-    }
-</script>
 <% if @stops.results.empty? %>
   <div class="alert alert-info">No stops found.</div>
 <% end %>
-<button id="btn-current-location" class="btn btn-info btn-address pull-right"><i class="icon-circle-blank"></i> Find my location</button>
 <div class="btn-group btn-group-vertical" style="width:100%;">
   <% @stops.results.each do |stop| %>
     <div style="text-align:left;" class="stopbutton btn">
@@ -22,6 +11,18 @@
       </a>
     </div>
     <% end %>
+</div>
+
+<div class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3><i class="icon-truck"></i>&nbsp;MSP Bus</h3>
+  </div>
+  <div class="modal-body" style="text-align:center;">
+    <p style="text-align:left;">Welcome to the MSP Bus application. If you provide your current location it would greatly enhance your experience, otherwise continue by dismissing this screen.</p>
+    <button id="btn-current-location" class="btn btn-info btn-large btn-address"><i class="icon-circle-blank"></i> Find my location</button>
+
+  </div>
 </div>
 
 <%= javascript_include_tag "realtime" %>

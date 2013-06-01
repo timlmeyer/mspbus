@@ -1,3 +1,13 @@
+Setup
+==============================
+
+ 1. Download and install [ElasticSearch](http://www.elasticsearch.org/)
+ 2. Install Rails
+ 3. Install Bundle
+ 4. Run `bundle`
+ 5. Index GeoData `rake environment tire:import CLASS='Stop' FORCE=true`
+
+
 MetroTransit API Documentation
 ==============================
 

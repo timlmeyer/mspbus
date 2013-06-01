@@ -62,4 +62,17 @@ $(document).ready(function() {
     data=_.sortBy(data,function(obj) { return obj.DepartureText; });
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
+
+  function got_coordiates(position) {
+    window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
+  }
+
+  function error_on_coordinates() {}
+
+  // Setup location handlers
+  $('#btn-current-location').on('click', function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
+    }
+  });
 });

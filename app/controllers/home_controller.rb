@@ -1,5 +1,11 @@
 class HomeController < ApplicationController
   def index
-    @stops = Stop.search({:lat=>"44.979801", :lon=>"-93.269981", :radius=>"1", :q => params[:q] })
+    unless params[:lat] && params[:lon]
+      params[:lat] = 44.979971
+      params[:lon] = -93.269797
+    end
+    params[:radius] = 1
+    
+    @stops = Stop.search(params)
   end
 end

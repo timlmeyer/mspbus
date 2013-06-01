@@ -8,6 +8,9 @@
         });
     }
 </script>
+<% if @stops.results.empty? %>
+  <div class="alert alert-info">No stops found.</div>
+<% end %>
 
 <div class="btn-group btn-group-vertical" style="width:100%;">
   <% @stops.results.each do |stop| %>

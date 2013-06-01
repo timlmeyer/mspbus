@@ -8,7 +8,7 @@ Real-time Arrival Data for a Stop
 
 http://svc.metrotransit.org/NexTrip/{STOPID}
 
-**StopID** is a numeric identifier available from the GTFS information in data/
+**StopID** is a numeric identifier available from the GTFS information in **data/stops.txt**
 
 Example call:
 

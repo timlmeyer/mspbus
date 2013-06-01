@@ -9,20 +9,12 @@
     }
 </script>
 
-<h1 class='pgTitle'>Stops</h1>
-
 <table class="table swaps-table">
-  <thead>
-    <tr>
-      <th>Stop Name</th>
-      <th>Distance</th>
-    </tr>
-  </thead>
   <tbody>
     <% @stops.results.each do |stop| %>
       <tr>
         <td>
-          <%= stop.stop_name %><br><i><%= stop.stop_desc %></i>
+          <b><%= stop.stop_name %></b>
           <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
         </td>
         <td><%= (stop.sort[0]*5280).round(2) unless stop.sort[0].nil? %> Feet Away</td>

@@ -13,7 +13,7 @@
   <% @stops.results.each do |stop| %>
     <div style="text-align:left;" class="stopbutton btn">
       <a href="stop/<%= stop.stop_id %>">
-        <div style="position:absolute;right:5px"><%= (stop.sort[0]*5280).round() unless stop.sort[0].nil? %> Feet Away</div>
+        <div style="position:absolute;right:5px"><%= (stop.sort[0]*5280).round() unless stop.sort[0].nil? %> ft</div>
         <b><%= stop.stop_name %></b> 
         <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
       </a>

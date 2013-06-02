@@ -58,8 +58,18 @@
     <h3><%= image_tag("logo-small.png", :size => "24x24", :alt => "MSP Bus Logo") %>&nbsp;MSP Bus</h3>
   </div>
   <div class="modal-body" style="text-align:center;">
-    <p>MSP Bus would like to use your geolocation to find stops near you.</p>
+    <p>Real-time bus arrival info for the Minneapolis/St. Paul area.</p>
+    <p>Please allow location access to find stops near you.</p>
     <button class="btn-current-location btn btn-info btn-large btn-address" style="font-weight:bold;font-size:20px"><img style="width:20px;height:20px;vertical-align:middle" src="<%= asset_path 'location.png' %>"> Allow</button>
+
+    <div style="margin-top:1em;">
+      <b>Buses arriving in:</b><br>
+      <span class="label label-important">0&ndash;5 Min</span>
+      <span class="label label-warning">5&ndash;12 Min</span>
+      <span class="label label-success">12&ndash;20 Min</span>
+      <span class="label label-info">&gt;20 Min</span>
+      <span class="label"><i class="icon-question-sign"></i> = Real-time unavailable</span>
+    </div>
 
   </div>
  </div>

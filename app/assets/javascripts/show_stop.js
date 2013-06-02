@@ -53,11 +53,22 @@ $(document).ready(function() {
         console.log(dtime);
 
         if(dtime<5)
-          obj.priority="red";
+          obj.priority="#B94A48";
         else if (dtime<15)
-          obj.priority="yellow";
+          obj.priority="#F89406";
+        else if (dtime<20)
+          obj.priority="#468847";
         else
-          obj.priority="green";
+          obj.priority="#000080";
+
+        if(obj.DepartureText=="Due")
+          obj.DepartureText="Now";
+
+        if(obj.DepartureText.indexOf(":")!=-1)
+          obj.DepartureText=obj.arrtime.format("h:mma");
+
+        if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
+          obj.DepartureText+='&nbsp;<i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
 
         console.log(obj.priority);
 

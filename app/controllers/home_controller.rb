@@ -21,4 +21,12 @@ class HomeController < ApplicationController
     @lat=params[:lat]
     @lon=params[:lon]
   end
+
+  def about
+
+  end
+  
+  def feedback
+    
+  end
 end

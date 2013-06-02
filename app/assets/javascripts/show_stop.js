@@ -71,7 +71,7 @@ $(document).ready(function() {
           obj.DepartureText+='&nbsp;<i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
 
         obj.sdesc=obj.Description;
-        if(obj.sdesc.length>25)
+        if(obj.sdesc.length>25 && matchMedia('only screen and (max-width: 480px)').matches)
           obj.sdesc=obj.Description.substr(0,25)+"&hellip;";
 
         console.log(obj.priority);

@@ -37,6 +37,10 @@ $(document).ready(function() {
   
   // Callback on realtime model.
   function got_data(model, data) {
+    if(data.length==0){
+      $("#result").parent().html("No buses found.");   
+    }
+
     data=_.map(data,
       function(obj) {
         var seconds=obj.DepartureTime.substr(6,10);

@@ -87,6 +87,7 @@
 
 <script>
   var markers = <%= @stops.results.map { |i| i['location'] }.to_json %>;
+  var stop_ids = <%= @stops.results.map { |i| i['stop_id'].to_i }.to_json %>;
 
   $("#view-table-btn").click( function() {
     $("#viewchanger li").removeClass("active");

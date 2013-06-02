@@ -24,5 +24,8 @@ function add_markers(markers) {
       draggable: false,
       animation: google.maps.Animation.DROP
     });
+    google.maps.event.addListener(marker, 'click', function() { 
+      window.location = '/stop/' + stop_ids[index];
+    });
   });
 }

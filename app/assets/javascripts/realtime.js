@@ -60,6 +60,7 @@ $(document).ready(function() {
       }
     );
     data=_.sortBy(data,function(obj) { return obj.DepartureText; });
+	console.log(data);
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
 
@@ -71,7 +72,10 @@ $(document).ready(function() {
     //window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
   }
 
-  function error_on_coordinates() {}
+  function error_on_coordinates() {
+  	$('#ask').modal("hide");
+  	$('#error').modal();
+  }
 
   // Setup location handlers
   $('#btn-current-location').on('click', function() {
@@ -80,13 +84,7 @@ $(document).ready(function() {
     }
   });
 
-  $('#btn-current-location-small').on('click', function() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
-    }
-  });
-
   if ( !$.cookie('lat') ) {
-    $('.modal').modal();
+    $('#ask').modal();
   }
 });

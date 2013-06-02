@@ -18,7 +18,7 @@
 <div id="view-table" class="views">
 
   <div class="btn-group btn-group-vertical" style="width:100%;">
-    <% @stops.results.each do |stop| %>
+    <% @stops.results.first(10).each do |stop| %>
       <div style="text-align:left;" class="stopbutton btn">
         <a href="stop/<%= stop.stop_id %>">
           <div style="position:absolute;right:5px">

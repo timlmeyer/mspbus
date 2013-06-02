@@ -3,7 +3,7 @@
     <div class="container">
       <a class="brand" href="/"><%= image_tag("logo-small.png", :size => "24x24", :alt => "MSP Bus Logo") %></a>
       <button class="btn-current-location btn btn-info btn-address pull-right"><i class=""></i><img height=25 width=25 src="<%= asset_path 'location.png' %>" alt="Update Location" /></button>
-      <form class="navbar-form"action="/">
+      <form class="navbar-form" action="/">
         <div class="input-append"><input type="text" id="q" name="q" placeholder="Search..." value="<%= params[:q] %>"/><button class="btn add-on"> <i class="icon-search"></i></button>
       </div></form>
       <!-- <ul class="nav pull-right">

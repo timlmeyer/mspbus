@@ -59,8 +59,8 @@
     <h3><%= image_tag("logo-small.png", :size => "24x24", :alt => "MSP Bus Logo") %>&nbsp;MSP Bus</h3>
   </div>
   <div class="modal-body" style="text-align:center;">
-    <p style="text-align:left;">Welcome to the MSP Bus application. If you provide your current location it would greatly enhance your experience, otherwise continue by dismissing this screen.</p>
-    <button class="btn-current-location btn btn-info btn-large btn-address"><i class="icon-circle-blank"></i> Find my location</button>
+    <p>MSP Bus would like to use your geolocation to find stops near you.</p>
+    <button class="btn-current-location btn btn-info btn-large btn-address" style="font-weight:bold"><%= image_tag("location.png", :size => "20x20", :alt => "GPS Location") %> Allow</button>
 
   </div>
  </div>
@@ -71,7 +71,7 @@
     <h3><i class="icon-truck"></i>&nbsp;MSP Bus</h3>
   </div>
   <div class="modal-body" style="text-align:center;">
-    <p style="text-align:left;"><p>Uh-Oh! Your location service doesnt seem to be working. Did you disable it, or does your device and/or browser not support geolocation?</p><p> To reenable follow these links:<br/><a href="https://support.google.com/chrome/answer/142065?hl=en">Chrome</a>, click on 'Enable or Disable Location Sharing'</p></p>
+    <p>Location settings are disabled. Please enable location settings to find stops near you.</p>
   </div>
 </div>
 

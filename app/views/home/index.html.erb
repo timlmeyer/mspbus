@@ -6,24 +6,51 @@
 
 <p style="text-align:center">Real-time bus arrival information</p>
 
-<div class="btn-group btn-group-vertical" style="width:100%;">
-  <% @stops.results.each do |stop| %>
-    <div style="text-align:left;" class="stopbutton btn">
-      <a href="stop/<%= stop.stop_id %>">
-        <div style="position:absolute;right:5px"><%= (stop.sort[0]*5280).round() unless stop.sort[0].nil? %> ft</div>
-        <b><%= stop.stop_name %></b> 
-        <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
-      </a>
-    </div>
-    <% end %>
+<ul id="viewchanger" class="nav nav-pills">
+  <li class="active">
+    <a id="view-table-btn" href="#"><i class="icon-th"></i> Table</a>
+  </li>
+  <li>
+    <a id="view-map-btn" href="#"><i class="icon-map-marker"></i> Map</a>
+  </li>
+</ul>
+
+<div id="view-table" class="views">
+
+  <div class="btn-group btn-group-vertical" style="width:100%;">
+    <% @stops.results.each do |stop| %>
+      <div style="text-align:left;" class="stopbutton btn">
+        <a href="stop/<%= stop.stop_id %>">
+          <div style="position:absolute;right:5px">
+            <%= 
+            if (stop.sort[0].nil?)
+              ""
+            elsif (stop.sort[0]>2)
+              stop.sort[0].round().to_s+" mi"      
+            elsif(stop.sort[0]>0.5) then
+              stop.sort[0].round(1).to_s+" mi"
+            else
+              (stop.sort[0]*5280).round().to_s+" ft"
+            end %>
+          </div>
+          <b><%= stop.stop_name %></b> 
+          <div class="real-time" id="<%= stop.stop_id %>" data-attr="<%= stop.stop_id %>"></div>
+        </a>
+      </div>
+      <% end %>
+  </div>
+  <div style="margin-top:1em;">
+    <b>Arriving in:</b><br>
+    <span class="label label-important">0&ndash;5 Min</span>
+    <span class="label label-warning">5&ndash;12 Min</span>
+    <span class="label label-success">12&ndash;20 Min</span>
+    <span class="label label-info">&gt;20 Min</span>
+    <span class="label"><i class="icon-question-sign"></i> = Real-time unavailable</span>
+  </div>
 </div>
-<div style="margin-top:1em;">
-  <b>Arriving in:</b><br>
-  <span class="label label-important">0&ndash;5 Min</span>
-  <span class="label label-warning">5&ndash;12 Min</span>
-  <span class="label label-success">12&ndash;20 Min</span>
-  <span class="label label-info">&gt;20 Min</span>
-  <span class="label"><i class="icon-question-sign"></i> = Real-time unavailable</span>
+
+<div id="view-map" class="views" style="display:none">
+  <div style="height:500px" id="map-canvas"/>
 </div>
 
 <div class="modal hide fade" id="ask">
@@ -48,4 +75,23 @@
   </div>
 </div>
 
+<script>
+  $("#view-table-btn").click( function() {
+    $("#viewchanger li").removeClass("active");
+    $("#view-table-btn").parent().addClass("active");
+    $(".views").hide();
+    $("#view-table").show();
+  });
+  $("#view-map-btn").click( function() {
+    $("#viewchanger li").removeClass("active");
+    $("#view-map-btn").parent().addClass("active");
+    $(".views").hide();
+    $("#view-map").show();
+  });
+</script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz7GjhrxP5ntdxLX79fi6LaLdn9Lc6LFY&sensor=true">
+</script>
+
 <%= javascript_include_tag "realtime" %>
+<%= javascript_include_tag "maps" %>

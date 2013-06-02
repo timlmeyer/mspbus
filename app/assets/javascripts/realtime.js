@@ -103,7 +103,7 @@ $(document).ready(function() {
   }
 
   // Setup location handlers
-  $('#btn-current-location').on('click', function() {
+  $('.btn-current-location').on('click', function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
     }

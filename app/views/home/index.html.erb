@@ -87,6 +87,8 @@
     $("#view-map-btn").parent().addClass("active");
     $(".views").hide();
     $("#view-map").show();
+    initialize(<%= @lat %>, <%= @lon %>);
+    initialize.ran=true;
   });
 </script>
 
@@ -95,7 +97,3 @@
 
 <%= javascript_include_tag "realtime" %>
 <%= javascript_include_tag "maps" %>
-
-<script type="text/javascript">
-  initialize(<%= @lat %>, <%= @lon %>);
-</script>

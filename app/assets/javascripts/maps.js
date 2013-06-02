@@ -1,4 +1,7 @@
 function initialize(lat,lon) {
+  if (initialize.ran==true)
+    return;
+
   var mapOptions = {
     center: new google.maps.LatLng(lat, lon),
     zoom: 15,

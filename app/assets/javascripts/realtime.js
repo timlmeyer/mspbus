@@ -28,7 +28,9 @@ var RealtimeModel = Backbone.Model.extend({
 });
 
 // Realtime Template
-var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"> <b><%= item.Route %><%= item.Terminal %></b> &ndash; <i><%= item.DepartureText %> min</i></span> <% }); %>');
+var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"> <b><%= item.Route %><%= item.Terminal %></b> &ndash; <i><%= item.DepartureText %></i></span> <% }); %>');
+
+var nodata_template = _.template('<span class="label">No data</span>');
 
 $(document).ready(function() {
 
@@ -41,26 +43,44 @@ $(document).ready(function() {
   
   // Callback on realtime model.
   function got_data(model, data) {
-    data=_.filter(data,function(obj) { return obj.Actual }); //Only show real-time data
+    if(data.length==0){
+      $("#" + model.id).html( nodata_template() );
+      return;
+    }
+
+
+//    data=_.filter(data,function(obj) { return obj.Actual }); //Only show real-time data
     data=_.map(data,
       function(obj) {
-        if(obj.DepartureText=="Due")
-          obj.DepartureText=0;
-        else
-          obj.DepartureText=parseInt(obj.DepartureText.replace(/\D/g,''),10);
+        var seconds=obj.DepartureTime.substr(6,10);
+        var offset=obj.DepartureTime.substr(19,3);
 
-        if(obj.DepartureText<5)
+        obj.arrtime=moment(seconds, "X");
+        var ctime=moment();
+
+        var dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
+
+        if(dtime<5)
           obj.priority="label-important";
-        else if (obj.DepartureText<15)
+        else if (dtime<12)
           obj.priority="label-warning";
-        else
+        else if (dtime<20)
           obj.priority="label-success";
+        else
+          obj.priority="label-info";
+
+        if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
+          obj.DepartureText=Math.round(dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
+        else if(dtime>=20)
+          obj.DepartureText='>20 Min';
 
         return obj;
       }
     );
-    data=_.sortBy(data,function(obj) { return obj.DepartureText; });
-	console.log(data);
+
+    data=_.sortBy(data,function(obj) { return obj.arrtime; });
+    data=data.slice(0,5);
+
     $("#" + model.id).html( realtime_template({ data: data }) );
   }
 

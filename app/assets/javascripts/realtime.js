@@ -64,8 +64,8 @@ $(document).ready(function() {
   }
 
   function got_coordiates(position) {
-    $.cookie('lat', position.coords.latitude);
-    $.cookie('lon', position.coords.longitude);
+    $.cookie('lat', position.coords.latitude, { expires: 1 });
+    $.cookie('lon', position.coords.longitude, { expires: 1 });
 
     window.location = '/';
     //window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;

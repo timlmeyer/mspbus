@@ -9,6 +9,10 @@ class HomeController < ApplicationController
     end
     params[:radius] = 1
 
+    if cookies[:q].present? then
+      params[:q]=cookies[:q]
+    end
+
     @stops = Stop.search(params)
     @lat=params[:lat]
     @lon=params[:lon]

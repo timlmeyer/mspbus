@@ -94,6 +94,8 @@ $(document).ready(function() {
     $.cookie('lon', position.coords.longitude, { expires: 1 });
 
     window.location = '/';
+
+    $.removeCookie('q');
     //window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
   }
 
@@ -108,6 +110,10 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
     }
   });
+
+  if ( $.url().param('q') ){
+    $.cookie('q', $.url().param('q'), { expires: 1 });
+  }
 
   if ( !$.cookie('lat') && !$.url().param('q') ) {
     $('#ask').modal();

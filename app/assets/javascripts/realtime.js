@@ -65,12 +65,16 @@ $(document).ready(function() {
   }
 
   function got_coordiates(position) {
-    window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
+    $.cookie('lat', position.coords.latitude, { expires: 1 });
+    $.cookie('lon', position.coords.longitude, { expires: 1 });
+
+    window.location = '/';
+    //window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
   }
 
   function error_on_coordinates() {
-  	$('.modal-ask').modal("hide");
-  	$('.modal-error').modal();
+  	$('#ask').modal("hide");
+  	$('#error').modal();
   }
 
   // Setup location handlers
@@ -79,8 +83,8 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
     }
   });
-  
-  if ( location.search === "") {
-    $('.modal-ask').modal();
+
+  if ( !$.cookie('lat') ) {
+    $('#ask').modal();
   }
 });

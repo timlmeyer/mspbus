@@ -68,7 +68,10 @@ $(document).ready(function() {
     window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
   }
 
-  function error_on_coordinates() {}
+  function error_on_coordinates() {
+  	$('.modal-ask').modal("hide");
+  	$('.modal-error').modal();
+  }
 
   // Setup location handlers
   $('#btn-current-location').on('click', function() {
@@ -78,6 +81,6 @@ $(document).ready(function() {
   });
   
   if ( location.search === "") {
-    $('.modal').modal();
+    $('.modal-ask').modal();
   }
 });

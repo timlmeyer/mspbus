@@ -13,15 +13,24 @@
     <% end %>
 </div>
 
-<div class="modal hide fade">
+<div class="modal hide fade modal-ask">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <button type="button" class="close modal-ask-close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3><i class="icon-truck"></i>&nbsp;MSP Bus</h3>
   </div>
   <div class="modal-body" style="text-align:center;">
     <p style="text-align:left;">Welcome to the MSP Bus application. If you provide your current location it would greatly enhance your experience, otherwise continue by dismissing this screen.</p>
     <button id="btn-current-location" class="btn btn-info btn-large btn-address"><i class="icon-circle-blank"></i> Find my location</button>
 
+  </div>
+
+<div class="modal hide fade modal-error">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3><i class="icon-truck"></i>&nbsp;MSP Bus</h3>
+  </div>
+  <div class="modal-body" style="text-align:center;">
+    <p style="text-align:left;">Uh-Oh! Your location service doesnt seem to be working. Did you disable it, or does your device andor browser not support geolocation?</p>
   </div>
 </div>
 

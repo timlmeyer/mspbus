@@ -76,4 +76,8 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
     }
   });
+  
+  if ( location.search === "") {
+    $('.modal').modal();
+  }
 });

@@ -10,5 +10,7 @@ class HomeController < ApplicationController
     params[:radius] = 1
 
     @stops = Stop.search(params)
+    @lat=params[:lat]
+    @lon=params[:lon]
   end
 end

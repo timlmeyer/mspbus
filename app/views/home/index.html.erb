@@ -95,3 +95,7 @@
 
 <%= javascript_include_tag "realtime" %>
 <%= javascript_include_tag "maps" %>
+
+<script type="text/javascript">
+  initialize(<%= @lat %>, <%= @lon %>);
+</script>

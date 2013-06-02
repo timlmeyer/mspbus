@@ -21,14 +21,25 @@ class Stop < ActiveRecord::Base
   end
 
   def self.search(params)
-    tire.search(page: params[:page], per_page: 10) do
-      query { string params[:q], default_operator: "AND" } if params[:q].present?
-      # filter :term, :active => true
-      # filter :term, :is_deleted => false
-      unless params[:q].present?
-        filter :geo_distance, location: "#{params[:lat]},#{params[:lon]}", distance: "#{params[:radius]}mi"
-      end
 
+    if params[:q].present? then
+      search_term=params[:q].split(" ").join("+")
+      begin
+        Timeout::timeout(2) do
+          response = HTTParty.get("http://maps.googleapis.com/maps/api/geocode/json?address=#{search_term}&sensor=true")
+          if not response['results'].blank?
+            params[:lat]=response['results'][0]['geometry']['location']['lat']
+            params[:lon]=response['results'][0]['geometry']['location']['lng']
+          end
+        end
+      rescue Timeout::Error
+
+      end
+    end
+
+
+    tire.search(page: params[:page], per_page: 10) do
+      filter :geo_distance, location: "#{params[:lat]},#{params[:lon]}", distance: "#{params[:radius]}mi"
       sort do
         by "_geo_distance", "location" => "#{params[:lat]},#{params[:lon]}", "unit" => "mi"
       end

@@ -15,4 +15,5 @@
 //= require bootstrap.min
 //= require underscore-min
 //= require backbone-min
+//= require jquery.cookie
 // require_tree .

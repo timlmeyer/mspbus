@@ -64,7 +64,11 @@ $(document).ready(function() {
   }
 
   function got_coordiates(position) {
-    window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
+    $.cookie('lat', position.coords.latitude);
+    $.cookie('lon', position.coords.longitude);
+
+    window.location = '/';
+    //window.location = '/?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude;
   }
 
   function error_on_coordinates() {}
@@ -75,8 +79,14 @@ $(document).ready(function() {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
     }
   });
-  
-  if ( location.search === "") {
+
+  $('#btn-current-location-small').on('click', function() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);
+    }
+  });
+
+  if ( !$.cookie('lat') ) {
     $('.modal').modal();
   }
 });

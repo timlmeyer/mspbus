@@ -78,7 +78,16 @@
   </div>
 </div>
 
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz7GjhrxP5ntdxLX79fi6LaLdn9Lc6LFY&sensor=true">
+</script>
+
+<%= javascript_include_tag "realtime" %>
+<%= javascript_include_tag "maps" %>
+
 <script>
+  var markers = <%= @stops.results.map { |i| i['location'] }.to_json %>;
+
   $("#view-table-btn").click( function() {
     $("#viewchanger li").removeClass("active");
     $("#view-table-btn").parent().addClass("active");
@@ -91,12 +100,7 @@
     $(".views").hide();
     $("#view-map").show();
     initialize(<%= @lat %>, <%= @lon %>);
+    add_markers(markers);
     initialize.ran=true;
   });
 </script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz7GjhrxP5ntdxLX79fi6LaLdn9Lc6LFY&sensor=true">
-</script>
-
-<%= javascript_include_tag "realtime" %>
-<%= javascript_include_tag "maps" %>

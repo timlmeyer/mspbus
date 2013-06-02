@@ -22,6 +22,7 @@ function add_markers(markers) {
       position: new google.maps.LatLng(item[1], item[0]),
       map: map,
       draggable: false,
+      icon: '/assets/logo-micro.png',
       animation: google.maps.Animation.DROP
     });
     google.maps.event.addListener(marker, 'click', function() { 

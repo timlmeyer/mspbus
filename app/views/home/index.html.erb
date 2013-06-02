@@ -1,7 +1,11 @@
 <% if @stops.results.empty? %>
   <div class="alert alert-info">No stops found.</div>
 <% end %>
+
 <!--<button id="btn-current-location-small" class="btn btn-info btn-address pull-right"><i class="icon-circle-blank"></i> Update my location</button>-->
+
+<p style="text-align:center">Real-time bus arrival information</p>
+
 <div class="btn-group btn-group-vertical" style="width:100%;">
   <% @stops.results.each do |stop| %>
     <div style="text-align:left;" class="stopbutton btn">
@@ -19,6 +23,7 @@
   <span class="label label-warning">5&ndash;12 Min</span>
   <span class="label label-success">12&ndash;20 Min</span>
   <span class="label label-info">&gt;20 Min</span>
+  <span class="label"><i class="icon-question-sign"></i> = Real-time unavailable</span>
 </div>
 
 <div class="modal hide fade" id="ask">

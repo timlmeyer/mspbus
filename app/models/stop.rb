@@ -3,6 +3,7 @@ class Stop < ActiveRecord::Base
   # Adding elasticsearch
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  include HTTParty
 
   attr_accessible :stop_id, :stop_name, :stop_desc, :stop_lat, :stop_lon, :stop_city, :stop_street
 

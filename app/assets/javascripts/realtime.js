@@ -109,7 +109,7 @@ $(document).ready(function() {
     }
   });
 
-  if ( !$.cookie('lat') ) {
+  if ( !$.cookie('lat') && !$.url().param('q') ) {
     $('#ask').modal();
   }
 });

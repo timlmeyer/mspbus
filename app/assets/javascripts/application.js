@@ -17,4 +17,5 @@
 //= require backbone-min
 //= require moment.min
 //= require jquery.cookie
+//= require url-parser
 // require_tree .

@@ -69,6 +69,11 @@ $(document).ready(function() {
         else
           obj.priority="label-info";
 
+        if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
+          obj.DepartureText=Math.round(dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
+        else if(dtime>=20)
+          obj.DepartureText='>20 Min';
+
         return obj;
       }
     );

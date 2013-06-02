@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     end
     params[:radius] = 1
 
-    if cookies[:q].present? then
+    if !params[:q] && cookies[:q].present?
       params[:q]=cookies[:q]
     end
 

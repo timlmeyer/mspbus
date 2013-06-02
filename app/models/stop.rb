@@ -23,6 +23,8 @@ class Stop < ActiveRecord::Base
 
   def self.search(params)
 
+    found_address = true
+
     if params[:q].present? then
       search_term=params[:q].split(" ").join("+")
       begin
@@ -31,6 +33,8 @@ class Stop < ActiveRecord::Base
           if not response['results'].blank?
             params[:lat]=response['results'][0]['geometry']['location']['lat']
             params[:lon]=response['results'][0]['geometry']['location']['lng']
+          else
+            found_address = false 
           end
         end
       rescue Timeout::Error
@@ -41,6 +45,9 @@ class Stop < ActiveRecord::Base
 
     tire.search(page: params[:page], per_page: 10) do
       filter :geo_distance, location: "#{params[:lat]},#{params[:lon]}", distance: "#{params[:radius]}mi"
+      if !found_address
+        query { string params[:q], default_operator: "AND" } if params[:q].present?
+      end
       sort do
         by "_geo_distance", "location" => "#{params[:lat]},#{params[:lon]}", "unit" => "mi"
       end

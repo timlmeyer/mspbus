@@ -117,6 +117,25 @@ $(document).ready(function() {
   }
 
   // Setup location handlers
+  $('.navbar-form').on('submit', function (event) {
+    event.preventDefault();
+    var form = $(this)
+    var geocoder = new google.maps.Geocoder();
+    // from http://www.mngeo.state.mn.us/chouse/coordinates.html
+    var bounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(44.47,-94.01),
+      new google.maps.LatLng(45.42,-92.73)
+    );
+    geocoder.geocode({'address': form.find('#q').val(), 'bounds': bounds}, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK && results[0]) {
+        $.cookie('lat', results[0].geometry.location.lat(), { expires: 1 });
+        $.cookie('lon', results[0].geometry.location.lng(), { expires: 1 });
+      }
+      event.target.submit();
+    });
+    return false;
+  });
+
   $('.btn-current-location').on('click', function() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(got_coordiates, error_on_coordinates);

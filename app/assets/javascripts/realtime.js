@@ -28,7 +28,7 @@ var RealtimeModel = Backbone.Model.extend({
 });
 
 // Realtime Template
-var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
+var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"><i class="<%= item.direction %>"></i> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
 
 $(document).ready(function() {
 
@@ -70,6 +70,8 @@ $(document).ready(function() {
         if(obj.DepartureText=="Due")
           obj.DepartureText="Now";
 
+        obj.direction = get_direction_class(obj.RouteDirection);
+
         if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText='&ndash; ' + Math.round(dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
         else if(dtime>=20)
@@ -85,6 +87,18 @@ $(document).ready(function() {
     data=data.slice(0,5);
 
     $("#" + model.id).html( realtime_template({ data: data }) );
+  }
+
+  function get_direction_class(route) {
+    if(route === 'SOUTHBOUND') {
+      return 'icon-arrow-down';
+    } else if(route === 'NORTHBOUND') {
+      return 'icon-arrow-up';
+    } else if(route === 'EASTBOUND') {
+      return 'icon-arrow-right';
+    } else if(route === 'WESTBOUND') {
+      return 'icon-arrow-left';
+    }
   }
 
   function got_coordiates(position) {

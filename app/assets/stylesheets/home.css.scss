@@ -59,3 +59,17 @@
   text-align:center;
   pointer-events:none;
 }
+
+
+#view-map {height:500px;}
+
+@media (max-width: 700px) {
+  #view-map {display:none;width:100%;}
+}
+
+@media (min-width: 701px) {
+  #view-table  {display:inline-block;width:48%;top:0}
+  #view-map    {display:inline-block;width:48%;top:0;vertical-align:top;margin-left:2em;}
+  #map-canvas  {height:100%;}
+  #viewchanger {display:none;}
+}

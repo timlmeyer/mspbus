@@ -43,8 +43,8 @@
   <%= render 'shared/locations' %>
 </div>
 
-<div id="view-map" class="views" style="display:none;height:500px;position:relative;">
-  <div style="height:100%" id="map-canvas"></div>
+<div id="view-map" class="views">
+  <div id="map-canvas"></div>
   <div id="maptt"></div>
 </div>
 
@@ -87,8 +87,9 @@
 <%= javascript_include_tag "maps" %>
 
 <script>
-  var markers = <%= @stops.results.map { |i| i['location'] }.to_json %>;
+  var markers  = <%= @stops.results.map { |i| i['location'] }.to_json %>;
   var stop_ids = <%= @stops.results.map { |i| i['stop_id'].to_i }.to_json %>;
+  var center   = {lat:<%= @lat %>, lon:<%= @lon %>};
 
   $("#view-table-btn").click( function() {
     $("#viewchanger li").removeClass("active");
@@ -101,8 +102,10 @@
     $("#view-map-btn").parent().addClass("active");
     $(".views").hide();
     $("#view-map").show();
-    initialize(<%= @lat %>, <%= @lon %>);
-    add_markers(markers, stop_ids);
+    initialize(center.lat, center.lon);
+    add_markers(markers);
     initialize.ran=true;
   });
 </script>
+
+<%= javascript_include_tag "home" %>

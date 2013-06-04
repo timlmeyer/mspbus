@@ -26,6 +26,11 @@ var BusETA = Backbone.Model.extend({
   }
 });
 
+function fetchETAjson(stopid, success) {
+  $.getJSON( 'http://svc.metrotransit.org/NexTrip/'+stopid+'?callback=?&format=json', '', success);
+}
+
+
 function get_direction_class(route) {
   if(route === 'SOUTHBOUND') {
     return 'icon-arrow-down';

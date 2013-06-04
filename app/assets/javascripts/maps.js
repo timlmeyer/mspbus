@@ -15,6 +15,28 @@ function initialize(lat,lon) {
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 }
 
+function hover_on_marker(stopid) {
+  if(typeof hover_on_marker.etas === 'undefined')
+    hover_on_marker.etas={};
+
+  if(typeof hover_on_marker.etas[stopid] === 'undefined'){
+    if(!$("#" + stopid).length){
+      fetchETAjson(stopid, function(data, textStatus, jqXHR) {
+          data=process_eta_data(data);
+          if(data.length!=0)
+            hover_on_marker.etas[stopid]=data;
+        }
+      );
+    } else {
+      hover_on_marker.etas[stopid]=$("#" + stopid).html();
+    }
+  }
+
+  $('#maptt').html(hover_on_marker.etas[stopid]);
+
+//  $("#maptt").html($("#" + stopid).children().clone());
+}
+
 //  google.maps.event.addDomListener(window, 'load', initialize);
 function add_markers(markers, stop_ids) {
   if (initialize.ran==true)
@@ -32,7 +54,7 @@ function add_markers(markers, stop_ids) {
       window.location = '/stop/' + stop_ids[index];
     });
 	  google.maps.event.addListener(marker, 'mouseover', function() {
-      $("#maptt").html($("#" + stop_ids[index]).clone());
+      hover_on_marker(stop_ids[index]);
 	  });
 	  // Hide tooltip on mouseout event.
 	  google.maps.event.addListener(marker, 'mouseout', function() {

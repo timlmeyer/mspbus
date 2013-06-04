@@ -1,32 +1,19 @@
+///////////////////////
+//Generate ETA labels
 
+var eta_label_template = _.template('<% _.each(data, function(item) { %> <span class="label" style="background-color:<%= item.priority %>"><i class="<%= item.direction %>"></i> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
 
-// Realtime Template
-var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label" style="background-color:<%= item.priority %>"><i class="<%= item.direction %>"></i> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
-
-$(document).ready(function() {
-
-  // Loop over stops and get realtime data
-  $(".real-time").each(function(index, item) {
-    var realtime_model = new BusETA({ id: item.id, dataType: 'jsonp' });
-    realtime_model.fetch({ success: got_data });
-
-  });
-  
-  // Callback on realtime model.
-  function got_data(model, data) {
-    if(data.length==0){
-      $("#" + model.id).parent().parent().hide();
-      return;
-    }
-
-
-//    data=_.filter(data,function(obj) { return obj.Actual }); //Only show real-time data
+// Callback on realtime model.
+function process_eta_data(data) {
+  if(data.length==0) {
+    data="";
+  } else {
     data=_.map(data,
       function(obj) {
         obj=process_eta(obj);
 
         if(obj.dtime<20 && obj.DepartureText.indexOf(":")!=-1)
-          obj.DepartureText='&ndash; ' + Math.round(dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
+          obj.DepartureText='&ndash; ' + Math.round(obj.dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
         else if(obj.dtime>=20)
           obj.DepartureText='';
         else
@@ -38,9 +25,29 @@ $(document).ready(function() {
 
     data=_.sortBy(data,function(obj) { return obj.arrtime; });
     data=data.slice(0,5);
-
-    $("#" + model.id).html( realtime_template({ data: data }) );
+    data=eta_label_template({ data: data });
   }
+  return data;
+}
+
+
+
+$(document).ready(function() {
+
+  // Loop over stops and get realtime data
+  $(".real-time").each(function(index, item) {
+    var realtime_model = new BusETA({ id: item.id, dataType: 'jsonp' });
+    realtime_model.fetch({
+      success: function(model,data) {
+        data=process_eta_data(data);
+        if(data.length==0)
+          $("#" + item.id).parent().parent().hide();
+        else
+          $("#" + item.id).html(data);
+      }
+    });
+  });
+  
 
   function got_coordiates(position) {
     $.cookie('lat', position.coords.latitude, { expires: 1 });

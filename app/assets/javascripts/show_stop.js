@@ -1,38 +1,9 @@
-var ShowStopModel = Backbone.Model.extend({
-  urlRoot : 'http://svc.metrotransit.org/NexTrip/',
-  // override backbone synch to force a jsonp call
-  sync: function(method, model, options) {
-    // Default JSON-request options.
-    var params = _.extend({
-      type:         'GET',
-      dataType:     'jsonp',
-      url:      model.url()+"?callback=?&format=json",
-      processData:  false
-    }, options);
- 
-    // Make the request.
-    return $.ajax(params);
-  },
-  
-  parse: function(response) {
-    // parse can be invoked for fetch and save, in case of save it can be undefined so check before using 
-    if (response) {
-      if (response.success ) {
-                                // here you write code to parse the model data returned and return it as a js object 
-                                // of attributeName: attributeValue
-                                
-        return {name: response.name};      // just an example,                
-      } 
-    }
-  }
-});
-
 // Realtime Template
 var realtime_template = _.template('<table><% _.each(data, function(item) { %> <tr><td class="route" nowrap><i class="<%= item.direction %>"></i> <%= item.Route %><%= item.Terminal %></td><td><span class="desc" title="<%= item.Description %>"><%= item.sdesc %></span></td><td class="time" style="color:<%= item.priority %>"><i><%= item.DepartureText %></i> </td></tr><% }); %></table>');
 
 $(document).ready(function() {
   var id=$("#thestop").data().attr;
-  var showstop_model = new ShowStopModel({ id: id, dataType: 'jsonp' });
+  var showstop_model = new BusETA({ id: id, dataType: 'jsonp' });
   showstop_model.fetch({ success: got_data });
   
   // Callback on realtime model.

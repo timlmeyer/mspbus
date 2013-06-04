@@ -28,7 +28,7 @@ var ShowStopModel = Backbone.Model.extend({
 });
 
 // Realtime Template
-var realtime_template = _.template('<table><% _.each(data, function(item) { %> <tr><td class="route"><%= item.Route %><%= item.Terminal %></td><td><span class="desc" title="<%= item.Description %>"><%= item.sdesc %></span></td><td class="time" style="color:<%= item.priority %>"><i><%= item.DepartureText %></i> </td></tr><% }); %></table>');
+var realtime_template = _.template('<table><% _.each(data, function(item) { %> <tr><td class="route" nowrap><i class="<%= item.direction %>"></i> <%= item.Route %><%= item.Terminal %></td><td><span class="desc" title="<%= item.Description %>"><%= item.sdesc %></span></td><td class="time" style="color:<%= item.priority %>"><i><%= item.DepartureText %></i> </td></tr><% }); %></table>');
 
 $(document).ready(function() {
   var id=$("#thestop").data().attr;
@@ -64,6 +64,8 @@ $(document).ready(function() {
         if(obj.DepartureText=="Due")
           obj.DepartureText="Now";
 
+        obj.direction = get_direction_class(obj.RouteDirection); 
+
         if(obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText=obj.arrtime.format("h:mma");
 
@@ -84,5 +86,17 @@ $(document).ready(function() {
       return obj.DepartureText=obj.DepartureText;
     });
     $("#result").html( realtime_template({ data: data }) );
+  }
+
+  function get_direction_class(route) {
+    if(route === 'SOUTHBOUND') {
+      return 'icon-arrow-down';
+    } else if(route === 'NORTHBOUND') {
+      return 'icon-arrow-up';
+    } else if(route === 'EASTBOUND') {
+      return 'icon-arrow-right';
+    } else if(route === 'WESTBOUND') {
+      return 'icon-arrow-left';
+    }
   }
 });

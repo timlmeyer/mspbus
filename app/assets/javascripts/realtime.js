@@ -1,7 +1,7 @@
 
 
 // Realtime Template
-var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label <%= item.priority %>"><i class="<%= item.direction %>"></i> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
+var realtime_template = _.template('<% _.each(data, function(item) { %> <span class="label" style="background-color:<%= item.priority %>"><i class="<%= item.direction %>"></i> <b><%= item.Route %><%= item.Terminal %></b> <i><%= item.DepartureText %></i></span> <% }); %>');
 
 $(document).ready(function() {
 
@@ -31,14 +31,7 @@ $(document).ready(function() {
 
         var dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
 
-        if(dtime<5)
-          obj.priority="label-important";
-        else if (dtime<12)
-          obj.priority="label-warning";
-        else if (dtime<20)
-          obj.priority="label-success";
-        else
-          obj.priority="label-info";
+        obj.priority=get_priority(dtime);
 
         if(obj.DepartureText=="Due")
           obj.DepartureText="Now";
@@ -60,18 +53,6 @@ $(document).ready(function() {
     data=data.slice(0,5);
 
     $("#" + model.id).html( realtime_template({ data: data }) );
-  }
-
-  function get_direction_class(route) {
-    if(route === 'SOUTHBOUND') {
-      return 'icon-arrow-down';
-    } else if(route === 'NORTHBOUND') {
-      return 'icon-arrow-up';
-    } else if(route === 'EASTBOUND') {
-      return 'icon-arrow-right';
-    } else if(route === 'WESTBOUND') {
-      return 'icon-arrow-left';
-    }
   }
 
   function got_coordiates(position) {

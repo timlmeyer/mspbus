@@ -23,14 +23,7 @@ $(document).ready(function() {
         var dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
         console.log(dtime);
 
-        if(dtime<5)
-          obj.priority="#B94A48";
-        else if (dtime<15)
-          obj.priority="#F89406";
-        else if (dtime<20)
-          obj.priority="#468847";
-        else
-          obj.priority="#000080";
+        obj.priority=get_priority(dtime);
 
         if(obj.DepartureText=="Due")
           obj.DepartureText="Now";
@@ -57,17 +50,5 @@ $(document).ready(function() {
       return obj.DepartureText=obj.DepartureText;
     });
     $("#result").html( realtime_template({ data: data }) );
-  }
-
-  function get_direction_class(route) {
-    if(route === 'SOUTHBOUND') {
-      return 'icon-arrow-down';
-    } else if(route === 'NORTHBOUND') {
-      return 'icon-arrow-up';
-    } else if(route === 'EASTBOUND') {
-      return 'icon-arrow-right';
-    } else if(route === 'WESTBOUND') {
-      return 'icon-arrow-left';
-    }
   }
 });

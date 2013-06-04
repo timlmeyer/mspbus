@@ -27,7 +27,11 @@ var BusETA = Backbone.Model.extend({
 });
 
 function fetchETAjson(stopid, success) {
-  $.getJSON( 'http://svc.metrotransit.org/NexTrip/'+stopid+'?callback=?&format=json', '', success);
+  $.getJSON( 'http://svc.metrotransit.org/NexTrip/'+stopid+'?callback=?&format=json', '', 
+    function(data, textStatus, jqXHR){
+      success(data);
+    }
+  );
 }
 
 

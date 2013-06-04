@@ -21,10 +21,12 @@ function hover_on_marker(stopid) {
 
   if(typeof hover_on_marker.etas[stopid] === 'undefined'){
     if(!$("#" + stopid).length){
-      fetchETAjson(stopid, function(data, textStatus, jqXHR) {
+      fetchETAjson(stopid, function(data) {
           data=process_eta_data(data);
-          if(data.length!=0)
+          if(data.length!=0){
             hover_on_marker.etas[stopid]=data;
+            $('#maptt').html(hover_on_marker.etas[stopid]);
+          }
         }
       );
     } else {

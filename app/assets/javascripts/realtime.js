@@ -23,24 +23,11 @@ $(document).ready(function() {
 //    data=_.filter(data,function(obj) { return obj.Actual }); //Only show real-time data
     data=_.map(data,
       function(obj) {
-        var seconds=obj.DepartureTime.substr(6,10);
-        var offset=obj.DepartureTime.substr(19,3);
+        obj=process_eta(obj);
 
-        obj.arrtime=moment(seconds, "X");
-        var ctime=moment();
-
-        var dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
-
-        obj.priority=get_priority(dtime);
-
-        if(obj.DepartureText=="Due")
-          obj.DepartureText="Now";
-
-        obj.direction = get_direction_class(obj.RouteDirection);
-
-        if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
+        if(obj.dtime<20 && obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText='&ndash; ' + Math.round(dtime)+' Min <i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
-        else if(dtime>=20)
+        else if(obj.dtime>=20)
           obj.DepartureText='';
         else
           obj.DepartureText='&ndash; ' + obj.DepartureText;

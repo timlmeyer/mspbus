@@ -14,21 +14,7 @@ $(document).ready(function() {
 
     data=_.map(data,
       function(obj) {
-        var seconds=obj.DepartureTime.substr(6,10);
-        var offset=obj.DepartureTime.substr(19,3);
-
-        obj.arrtime=moment(seconds, "X");
-        var ctime=moment();
-
-        var dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
-        console.log(dtime);
-
-        obj.priority=get_priority(dtime);
-
-        if(obj.DepartureText=="Due")
-          obj.DepartureText="Now";
-
-        obj.direction = get_direction_class(obj.RouteDirection); 
+        obj=process_eta(obj);
 
         if(obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText=obj.arrtime.format("h:mma");

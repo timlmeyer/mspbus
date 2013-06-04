@@ -49,6 +49,21 @@ function get_priority(eta) {
     return "#000080";
 }
 
+function process_eta(obj) {
+  var seconds=obj.DepartureTime.substr(6,10);
+  var offset=obj.DepartureTime.substr(19,3);
 
+  obj.arrtime=moment(seconds, "X");
+  var ctime=moment();
 
+  obj.dtime=(obj.arrtime-ctime)/1000/60; //Convert to minutes
 
+  obj.priority=get_priority(obj.dtime);
+
+  if(obj.DepartureText=="Due")
+    obj.DepartureText="Now";
+
+  obj.direction = get_direction_class(obj.RouteDirection);
+
+  return obj;
+}

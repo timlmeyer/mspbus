@@ -26,8 +26,6 @@ $(document).ready(function() {
         if(obj.sdesc.length>20 && matchMedia('only screen and (max-width: 480px)').matches)
           obj.sdesc=obj.Description.substr(0,20)+" &hellip;";
 
-        console.log(obj.priority);
-
         return obj;
       }
     );

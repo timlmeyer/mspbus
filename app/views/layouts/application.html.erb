@@ -3,9 +3,17 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <meta http-equiv="Content-Language" content="en">
-  <meta name="description" content="Real-time arrival information for buses in the Minneapolis/St. Paul area" />
+  <meta name="description" content="Real-time arrival information Minneapolis/St. Paul buses" />
+  <meta name="keywords" content="msp bus, mspbus, minneapolis bus, st paul bus, twin cities bus, real-time bus, real time bus, realtime bus, bus arrival times, bus times" />
 
+
+<% if @stop.nil? %>
   <title>MSP Bus</title>
+<% else %>
+  <title><%= @stop.stop_name %> (<%= @stop.stop_desc %>) mspbus.org</title>
+<% end %>
+
+
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>

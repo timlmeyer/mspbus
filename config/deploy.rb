@@ -3,6 +3,7 @@ set :repository,  "git://github.com/r-barnes/mspbus.git"
 set :scm, :git
 
 set :deploy_to, "/var/www/mspbus"
+set :use_sudo, false
 
 role :web, "debian2.brobston.com"
 role :app, "debian2.brobston.com"

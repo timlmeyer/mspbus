@@ -1,32 +1,4 @@
-var BusETA = Backbone.Model.extend({
-  urlRoot : 'http://svc.metrotransit.org/NexTrip/',
-  // override backbone synch to force a jsonp call
-  sync: function(method, model, options) {
-    // Default JSON-request options.
-    var params = _.extend({
-      type:         'GET',
-      dataType:     'jsonp',
-      url:      model.url()+"?callback=?&format=json",
-      processData:  false
-    }, options);
- 
-    // Make the request.
-    return $.ajax(params);
-  },
-  
-  parse: function(response) {
-    // parse can be invoked for fetch and save, in case of save it can be undefined so check before using 
-    if (response) {
-      if (response.success ) {
-             // here you write code to parse the model data returned and return it as a js object 
-             // of attributeName: attributeValue                   
-        return {name: response.name};      // just an example,                
-      } 
-    }
-  }
-});
-
-function fetchETAjson(stopid, success) {
+function BusETA(stopid, success) {
   $.getJSON( 'http://svc.metrotransit.org/NexTrip/'+stopid+'?callback=?&format=json', '', 
     function(data, textStatus, jqXHR){
       success(data);

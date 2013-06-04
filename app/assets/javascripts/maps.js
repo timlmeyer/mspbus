@@ -21,7 +21,7 @@ function hover_on_marker(stopid) {
 
   if(typeof hover_on_marker.etas[stopid] === 'undefined'){
     if(!$("#" + stopid).length){
-      fetchETAjson(stopid, function(data) {
+      BusETA(stopid, function(data) {
           data=process_eta_data(data);
           if(data.length!=0){
             hover_on_marker.etas[stopid]=data;

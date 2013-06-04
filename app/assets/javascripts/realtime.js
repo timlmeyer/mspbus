@@ -36,16 +36,14 @@ $(document).ready(function() {
 
   // Loop over stops and get realtime data
   $(".real-time").each(function(index, item) {
-    var realtime_model = new BusETA({ id: item.id, dataType: 'jsonp' });
-    realtime_model.fetch({
-      success: function(model,data) {
+    BusETA(item.id, function(data) {
         data=process_eta_data(data);
         if(data.length==0)
           $("#" + item.id).parent().parent().hide();
         else
           $("#" + item.id).html(data);
       }
-    });
+    );
   });
   
 

@@ -3,11 +3,10 @@ var realtime_template = _.template('<table><% _.each(data, function(item) { %> <
 
 $(document).ready(function() {
   var id=$("#thestop").data().attr;
-  var showstop_model = new BusETA({ id: id, dataType: 'jsonp' });
-  showstop_model.fetch({ success: got_data });
+  BusETA(id, got_data );
   
   // Callback on realtime model.
-  function got_data(model, data) {
+  function got_data(data) {
     if(data.length==0){
       $("#result").parent().html("No buses found.");   
     }
@@ -19,7 +18,7 @@ $(document).ready(function() {
         if(obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText=obj.arrtime.format("h:mma");
 
-        if(dtime<20 && obj.DepartureText.indexOf(":")!=-1)
+        if(obj.dtime<20 && obj.DepartureText.indexOf(":")!=-1)
           obj.DepartureText+='&nbsp;<i title="Bus scheduled, no real-time data available." class="icon-question-sign"></i>';
 
         obj.sdesc=obj.Description;

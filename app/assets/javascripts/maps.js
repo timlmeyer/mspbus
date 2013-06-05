@@ -49,7 +49,7 @@ function add_markers(markers, stop_ids) {
       position: new google.maps.LatLng(item[1], item[0]),
       map: map,
       draggable: false,
-      icon: '/assets/logo-micro.png',
+      icon: '/assets/bus-stop.png',
       animation: google.maps.Animation.DROP
     });
     google.maps.event.addListener(marker, 'click', function() { 

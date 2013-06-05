@@ -1,4 +1,45 @@
 var map;
+var map_markers=[];
+var bus_markers=[];
+
+function update_bus_locations(){
+  _.each(bus_markers, function(bus) {
+    bus.setMap(null);
+  });
+  bus_markers=[];
+
+  var bus_list=[];
+
+  _.each(map_markers, function(marker) {
+    BusETA(marker.stopid, function(data) {
+      _.each(data, function(obj) {
+        if(obj.VehicleLongitude==0) return;
+
+        var key=obj.VehicleLongitude.toString()+obj.VehicleLatitude.toString();
+
+        if(_.contains(bus_list, key)) return;
+        bus_list.push(key);
+
+        var bus = new google.maps.Marker({
+          position: new google.maps.LatLng(obj.VehicleLatitude, obj.VehicleLongitude),
+          map: map,
+          draggable: false,
+          icon: '/assets/logo-micro.png',
+          animation: google.maps.Animation.DROP,
+          stopid:marker.stopid
+        });
+        bus_markers.push(bus);
+	      google.maps.event.addListener(bus, 'mouseover', function() {
+          $("#maptt").html('<span class="label">Bus #' + obj.Route + obj.Terminal + " " + obj.RouteDirection+'</span>');
+	      });
+	      // Hide tooltip on mouseout event.
+	      google.maps.event.addListener(bus, 'mouseout', function() {
+          $("#maptt").html("");
+	      });
+      });
+    });
+  });
+}
 
 function initialize(lat,lon) {
   if (initialize.ran==true)
@@ -13,6 +54,9 @@ function initialize(lat,lon) {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+  window.setTimeout(update_bus_locations, 3000);
+  window.setInterval(update_bus_locations, 60000);
 }
 
 function hover_on_marker(stopid) {
@@ -50,8 +94,10 @@ function add_markers(markers, stop_ids) {
       map: map,
       draggable: false,
       icon: '/assets/bus-stop.png',
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      stopid:stop_ids[index]
     });
+    map_markers.push(marker);
     google.maps.event.addListener(marker, 'click', function() { 
       window.location = '/stop/' + stop_ids[index];
     });

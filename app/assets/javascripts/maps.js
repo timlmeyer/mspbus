@@ -48,6 +48,8 @@ function initialize(lat,lon) {
   initialize.lat=lat;
   initialize.lon=lon;
 
+  console.log("Host location: " + window.location.host);
+
   var mapOptions = {
     center: new google.maps.LatLng(lat, lon),
     zoom: 16,

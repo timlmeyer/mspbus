@@ -1,5 +1,5 @@
 // Realtime Template
-var realtime_template = _.template('<table><% _.each(data, function(item) { %> <tr><td class="route" nowrap><i class="<%= item.direction %>"></i> <%= item.Route %><%= item.Terminal %></td><td><span class="desc" title="<%= item.Description %>"><%= item.sdesc %></span></td><td class="time" style="color:<%= item.priority %>"><i><%= item.DepartureText %></i> </td></tr><% }); %></table>');
+var realtime_template = _.template('<% _.each(data, function(item) { %> <tr><td class="route" nowrap><i class="<%= item.direction %>"></i> <%= item.Route %><%= item.Terminal %></td><td><span class="desc" title="<%= item.Description %>"><%= item.sdesc %></span></td><td class="time" style="color:<%= item.priority %>"><i><%= item.DepartureText %></i> </td></tr><% }); %>');
 
 $(document).ready(function() {
   var id=$("#thestop").data().attr;
@@ -32,6 +32,6 @@ $(document).ready(function() {
     data=_.filter(data,function(obj) {
       return obj.DepartureText=obj.DepartureText;
     });
-    $("#result").html( realtime_template({ data: data }) );
+    $("#result").append( realtime_template({ data: data }) );
   }
 });

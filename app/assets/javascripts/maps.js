@@ -20,11 +20,17 @@ function update_bus_locations(){
         if(_.contains(bus_list, key)) return;
         bus_list.push(key);
 
+        var icon;
+        if($.isNumeric(obj.Route))
+          icon='/assets/bus.png';
+        else
+          icon='/assets/train.png';
+
         var bus = new google.maps.Marker({
           position: new google.maps.LatLng(obj.VehicleLatitude, obj.VehicleLongitude),
           map: map,
           draggable: false,
-          icon: '/assets/bus.png',
+          icon: icon,
           animation: google.maps.Animation.DROP,
           stopid:marker.stopid
         });

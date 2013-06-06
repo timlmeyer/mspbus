@@ -32,6 +32,6 @@ $(document).ready(function() {
     data=_.filter(data,function(obj) {
       return obj.DepartureText=obj.DepartureText;
     });
-    $("#result").append( realtime_template({ data: data }) );
+    $("#result").html( realtime_template({ data: data }) );
   }
 });

@@ -20,5 +20,5 @@
 //= require url-parser
 //= require matchMedia
 //= require bus_eta
-//= require jquery.storage
+// require jquery.storage
 // require_tree .

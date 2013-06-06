@@ -1,17 +1,17 @@
 function BusETA(stopid, success) {
   stopid=stopid.toString();
   var now=new Date().getTime()/1000;
-  var ls=$.localStorage(stopid);
-  if(ls!=null && now-ls.time<60) {
-    success(ls.data);
-  } else {
+//  var ls=$.localStorage(stopid);
+//  if(ls!=null && now-ls.time<60) {
+//    success(ls.data);
+//  } else {
     $.getJSON( 'http://svc.metrotransit.org/NexTrip/'+stopid+'?callback=?&format=json', '', 
       function(data, textStatus, jqXHR){
-        $.localStorage(stopid, {time:now, data: data});
+//        $.localStorage(stopid, {time:now, data: data});
         success(data);
       }
     );
-  }
+//  }
 }
 
 

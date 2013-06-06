@@ -96,6 +96,10 @@ function add_markers(markers, stop_ids) {
   if (initialize.ran==true)
     return;
 
+  var infobox = new google.maps.InfoWindow({
+    size: new google.maps.Size(150, 50)
+  });
+
   _.each(markers, function(item, index) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng(item[1], item[0]),
@@ -107,7 +111,10 @@ function add_markers(markers, stop_ids) {
     });
     map_markers.push(marker);
     google.maps.event.addListener(marker, 'click', function() { 
-      window.location = '/stop/' + stop_ids[index];
+//      window.location = '/stop/' + stop_ids[index];
+      var infobox_interior = '<div id="'+stop_ids[index] + '" class="infobox">hi</div>';
+      infobox.setContent(infobox_interior);
+      infobox.open(map,marker);
     });
 	  google.maps.event.addListener(marker, 'mouseover', function() {
       hover_on_marker(stop_ids[index]);

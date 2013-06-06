@@ -24,7 +24,7 @@ function update_bus_locations(){
           position: new google.maps.LatLng(obj.VehicleLatitude, obj.VehicleLongitude),
           map: map,
           draggable: false,
-          icon: '/assets/logo-micro.png',
+          icon: '/assets/bus.png',
           animation: google.maps.Animation.DROP,
           stopid:marker.stopid
         });
